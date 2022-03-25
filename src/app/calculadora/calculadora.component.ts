@@ -53,14 +53,15 @@ export class CalculadoraComponent{
   public changeSign () {
     var lastNumber = '';
     var position = 0;
-    var valor = '';
+    var symbol = '';
     let control;
 
     if(!isNaN(parseFloat(this.lastValue()))) {
       for (var i = this.screenOperation.length-1; i>0; i--){
         if(isNaN(parseFloat(this.screenOperation[i]))) {
-          if(this.screenOperation[i] === '-' || this.screenOperation[i] === '+' || this.screenOperation[i] === '*' || this.screenOperation[i] === '/'){
-            valor = this.screenOperation[i];
+          if(this.screenOperation[i] === '-' || this.screenOperation[i] === '+' || 
+          this.screenOperation[i] === '*' || this.screenOperation[i] === '/' || this.screenOperation[i] === '.' ){
+            symbol = this.screenOperation[i];
             control=true;
           } 
           position = i+1;
@@ -70,13 +71,16 @@ export class CalculadoraComponent{
     }
     
     if(control == true){
-      lastNumber = valor+this.screenOperation.substring(position);
-      this.screenOperation = this.screenOperation.replace(lastNumber,valor + '(' + parseFloat(lastNumber.substring(1,lastNumber.length)) * -1 + ')');
+      if(symbol === '.'){ // if symbol is comma, is a decimal, then:
+        lastNumber= this.screenOperation;
+        this.screenOperation = this.screenOperation.replace(lastNumber, '(' + parseFloat(lastNumber) * -1 + ')');
+      }
+      lastNumber = symbol+this.screenOperation.substring(position);
+      this.screenOperation = this.screenOperation.replace(lastNumber,symbol + '(' + parseFloat(lastNumber.substring(1,lastNumber.length)) * -1 + ')');
     } else {
       lastNumber = this.screenOperation.substring(position);
       this.screenOperation = this.screenOperation.replace(lastNumber, '(' + parseFloat(lastNumber) * -1 + ')');
     }
-
     this.screenResult = this.screenOperation;
   }
 
