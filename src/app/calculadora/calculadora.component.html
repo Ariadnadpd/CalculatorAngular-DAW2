@@ -1,0 +1,118 @@
+
+<main class="main bg-zinc-100 mt-2 p-6 md:flex md:justify-between block">
+
+    <div class="flex justify-center items-center w-full h-full">
+        
+        <!-- calculadora -->
+        <div class="m-4 w-80 relative rounded-b-xl bg-black rounded-t-xl after:content-none after:block after:absolute after:top-0 after:w-full 
+        after:h-full after:shadow-xl after:rounded-2xl after:opacity-30">
+            
+            <!--topbar-->
+            <div class="topbar w-full h-3/6 bg-black relative flex items-center justify-start px-2 py-4 rounded-full 
+                before:content-[' '] before:absolute before:block before:w-2.5 before:h-2.5 before:bg-red-500 before:rounded-full"> </div>
+                
+                <!-- screen -->
+                <div class="w-full h-30 text-right pr-4 pt-2">
+                    <div *ngIf="screenOperation.length>34;" class="text-1xl text-white mt-4" >{{screenOperation}}</div>
+                    <div *ngIf="screenOperation.length<34;" class="text-2xl text-white">{{screenOperation}}</div>
+                    <div *ngIf="screenResult.length<14;" class="text-4xl text-white">{{ screenResult }}</div> 
+                    <div *ngIf="screenResult.length>14;" class="text-3xl text-white mt-4">{{ screenResult }}</div>                
+                </div>
+
+                <!-- buttons -->
+                <div class="grid grid-cols-4 gap-0.5 mt-0 bg-black" id="buttons">
+                    <div class="button text-white bg-darkgray hover:bg-neutral-800">
+                        <app-boton-calculadora [name]="'AC'" (value)="resetScreen()" ></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button text-white bg-darkgray hover:bg-neutral-800">
+                        <app-boton-calculadora [name]="'+/-'" (value)="changeSign()"></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button text-white bg-darkgray hover:bg-neutral-800">
+                        <app-boton-calculadora [name]="'%'" (value)="porcentage()"></app-boton-calculadora> 
+                    </div>
+
+                    <div class="button bg-orangem text-white hover:bg-[#F6B171]">
+                        <app-boton-calculadora [name]="'&divide;'" (value)="operation('/')"></app-boton-calculadora>
+                    </div>
+
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'7'" (value)="setNumber('7')"></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'8'"(value)="setNumber('8')" ></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'9'" (value)="setNumber('9')"></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button bg-orangem text-white hover:bg-[#F6B171]">
+                        <app-boton-calculadora [name]="'x'" (value)="operation('*')"></app-boton-calculadora>
+                    </div>
+
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'4'" (value)="setNumber('4')"></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'5'" (value)="setNumber('5')"></app-boton-calculadora>
+                    </div>
+
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'6'" (value)="setNumber('6')"></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button bg-orangem text-white hover:bg-[#F6B171]">
+                        <app-boton-calculadora [name]="'-'" (value)="operation('-')"></app-boton-calculadora>        
+                    </div>
+
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'1'" (value)="setNumber('1')"></app-boton-calculadora>
+                    </div>
+
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'2'" (value)="setNumber('2')"></app-boton-calculadora>
+                    </div>
+
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'3'" (value)="setNumber('3')"></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button bg-orangem text-white hover:bg-[#F6B171]">
+                        <app-boton-calculadora [name]="'+'" (value)="operation('+')"></app-boton-calculadora>      
+                    </div>
+                    
+                    <div class="button col-start-1 col-end-3 text-white bg-lighttgray rounded-bl-xl hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="'0'" (value)="setNumber('0')"></app-boton-calculadora>
+                    </div>
+                    
+                    <div class="button text-white bg-lighttgray hover:bg-neutral-700">
+                        <app-boton-calculadora [name]="','" (value)="point('.')"></app-boton-calculadora>
+                    </div>
+
+                    <div class="button bg-orangem rounded-br-xl text-white hover:bg-[#F6B171]">
+                        <app-boton-calculadora [name]="'='" (value)="calcOperation()"></app-boton-calculadora>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <div class="w-full h-full bg-white shadow-xl max-w-6xl md:mt-[52px] md:mx-4 md:px-12 md:py-[85.5px] text-justify mt-10 mb-20 py-20 px-12">
+        
+        <p class="tracking-wide">The calculator is developed with version 13.2.6 of the angular framework. Its design 
+            is based on the calculator provided in the macOS operating system.
+        </p>
+        <br>
+        <p class="tracking-wide">The calculator shows at the top the operation performed and at the bottom the indicated operation and 
+            then its result.
+        </p>
+        <br>
+        <p class="tracking-wide"><span class="text-orangem font-semibold">IMPORTANT:</span> To make use of the calculator correctly 
+            you have to click right in the center of the number or symbol.
+        </p>
+
+    </div>
+</main>

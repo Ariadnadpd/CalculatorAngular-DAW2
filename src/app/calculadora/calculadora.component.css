@@ -1,0 +1,28 @@
+
+.topbar::before {
+    box-shadow: 40px 0 0 #4FBF33, 20px 0 0 #F4AF36;
+}
+#buttons {
+    border-bottom-right-radius: 7rem; 
+    border-bottom-left-radius: 7rem; 
+}
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    font-size: 1.21rem;
+    position: relative;
+    z-index: 100;
+}
+
+/*.button:nth-child(17) {
+    border-bottom-left-radius: 4px;
+}
+.button:last-child {
+    border-bottom-right-radius: 4px;
+}*/
+
+.button:not(:nth-child(18)):hover{
+    cursor: pointer;
+}
