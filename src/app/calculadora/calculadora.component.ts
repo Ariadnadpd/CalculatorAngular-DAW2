@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { last } from 'rxjs';
 @Component({
   selector: 'app-calculadora',
   templateUrl: './calculadora.component.html',
@@ -8,10 +9,10 @@ export class CalculadoraComponent{
   
   screenOperation: string = '0';
   screenResult: string = '0';
-  operationComplete: boolean = false;
 
   constructor() { }
 
+  // Method indicating the number
   public setNumber(number: string): void {
     if (this.screenResult === '0') {      
       this.screenResult = '';
@@ -23,41 +24,24 @@ export class CalculadoraComponent{
     this.screenResult = '' + this.screenResult + number;
   }
 
+  // Method indicating the operation
   public operation(operation: string): void {
     this.screenResult = this.screenResult + operation;
   }
 
+  // Method that performs the operation
   public calcOperation(): void {
     let result = eval(this.screenResult.replace('÷', '/'));
     this.screenResult = result.toString().replace('/', '÷');
   }
 
+  // Method that return the last number
   public lastValue (){
     return this.screenOperation.substring(this.screenOperation.length-1);
   }
 
-  public writeOperation (text: any){
-    if (this.screenOperation == '0' && text != '.') this.screenOperation = '';
-
-    if(this.operationComplete && isNaN(text)) {
-      this.screenOperation = this.screenResult;
-      this.operationComplete = false;
-    }
-
-    if(this.operationComplete && !isNaN(text)) {
-      this.screenOperation = '';
-      this.screenResult = '0';
-      this.operationComplete = false;
-    }
-
-    if(isNaN(parseInt(this.lastValue())) && isNaN(text)){
-      this.screenOperation = this.screenOperation.substring(0, this.screenOperation.length-1);
-    } else if(this.screenOperation.length < 24) {
-      this.screenOperation += text;
-    }
-  }
-
-  public point(text: string){
+  // Method for the decimal comma
+  public comma(text: string){
     if(this.screenOperation == '0' && text=='.') this.screenOperation = '0.';
     else if(this.screenOperation.indexOf('.') == -1){
       this.screenOperation += '.'
@@ -65,29 +49,45 @@ export class CalculadoraComponent{
     this.screenResult = this.screenOperation;
   }
 
+  // Method that changes the sign
   public changeSign () {
     var lastNumber = '';
     var position = 0;
-    
+    var valor = '';
+    let control;
+
     if(!isNaN(parseFloat(this.lastValue()))) {
       for (var i = this.screenOperation.length-1; i>0; i--){
         if(isNaN(parseFloat(this.screenOperation[i]))) {
+          if(this.screenOperation[i] === '-' || this.screenOperation[i] === '+' || this.screenOperation[i] === '*' || this.screenOperation[i] === '/'){
+            valor = this.screenOperation[i];
+            control=true;
+          } 
           position = i+1;
           break;
         }
       }
     }
-    lastNumber = this.screenOperation.substring(position);
-    this.screenOperation = this.screenOperation.replace(lastNumber, '(' + parseFloat(lastNumber) * -1 + ')');
+    
+    if(control == true){
+      lastNumber = valor+this.screenOperation.substring(position);
+      this.screenOperation = this.screenOperation.replace(lastNumber,valor + '(' + parseFloat(lastNumber.substring(1,lastNumber.length)) * -1 + ')');
+    } else {
+      lastNumber = this.screenOperation.substring(position);
+      this.screenOperation = this.screenOperation.replace(lastNumber, '(' + parseFloat(lastNumber) * -1 + ')');
+    }
+
     this.screenResult = this.screenOperation;
   }
 
+  // Method that resets the screen
   public resetScreen() {
     this.screenOperation = '0';
     this.screenResult = '0';
   }
 
-  public porcentage(){
+  // Method that performs a percentage
+  public percentage(){
 
     let cont = ' ';
     let symbol = ' ';
@@ -135,17 +135,16 @@ export class CalculadoraComponent{
             }                            
           }
           p++;
-          }
         }
       }
+    }
 
-      if(control != true && this.screenOperation.length==control_length){
-        this.screenOperation = (parseFloat(this.screenOperation) /100).toString();
-        this.screenResult = this.screenOperation;
-      }
+    if(control != true && this.screenOperation.length==control_length){
+      this.screenOperation = (parseFloat(this.screenOperation) /100).toString();
+      this.screenResult = this.screenOperation;
+    }
   }
-
- 
 }
+ 
 
 
