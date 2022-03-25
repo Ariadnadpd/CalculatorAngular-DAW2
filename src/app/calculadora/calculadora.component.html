@@ -13,10 +13,9 @@
                 
                 <!-- screen -->
                 <div class="w-full h-30 text-right pr-4 pt-2">
-                    <div *ngIf="screenOperation.length>34;" class="text-1xl text-white mt-4" >{{screenOperation}}</div>
-                    <div *ngIf="screenOperation.length<34;" class="text-2xl text-white">{{screenOperation}}</div>
-                    <div *ngIf="screenResult.length<14;" class="text-4xl text-white">{{ screenResult }}</div> 
-                    <div *ngIf="screenResult.length>14;" class="text-3xl text-white mt-4">{{ screenResult }}</div>                
+                    <div class="text-2xl text-white mt-4" >{{ screenOperation | limit:20 }}</div>
+                    <div class="text-4xl text-white">{{ screenResult | limit:13 }}</div> 
+                    
                 </div>
 
                 <!-- buttons -->

@@ -6,14 +6,15 @@ import { CalculadoraComponent } from './calculadora/calculadora.component';
 import { BotonCalculadoraComponent } from './boton-calculadora/boton-calculadora.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { LimitPipe } from './limit.pipe';
 @NgModule({
   declarations: [
     AppComponent,
     CalculadoraComponent,
     BotonCalculadoraComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    LimitPipe
   ],
   imports: [
     BrowserModule
