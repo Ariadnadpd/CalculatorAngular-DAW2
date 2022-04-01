@@ -4,8 +4,6 @@ Calculadora desarrollada con el framework de Angular y de Tailwind CSS. Su dise�
 
 La calculadora puede realizar varias operaciones: sumar, restar, multiplicar, dividir, cambiar el signo de un número, añadir comas a los números para convertirlos en decimales y realizar porcentajes. 
 
-**Importante:** Para que las operaciones se realicen correctamente hay que hacer clic en el centro del número o del símbolo.
-
 ## Requerimientos
 
 1. Tener instalado [Node.js y npm](https://nodejs.org/es/).
